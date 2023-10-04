@@ -1,0 +1,22 @@
+.scale{
+    margin-left: 14%;
+}
+.no-scale{
+    margin-left: 0;
+}
+
+#sidebar {
+    /* padding-top: 6%; */
+    top: 3rem;
+    left: 0;
+    position: fixed;
+    z-index: 8;
+    min-height: 100%;
+    backface-visibility: hidden;
+    width: 14%;
+    margin: 0;
+    background: #063594;
+    box-shadow: 3px 0 5px rgba(0, 0, 0, 0.5);
+    transform: translateX(0);
+    transition: transform 0.4s ease-out;
+  }
