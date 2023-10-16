@@ -15,6 +15,8 @@ import {
 import MessageNotifier from "../../common/notifier/MessageNotifier";
 import ErrMessageNotifier from "../../common/notifier/ErrMessageNotifier";
 import { useNavigate } from "react-router-dom";
+import { addDoc, deleteDoc, doc } from "firebase/firestore";
+import { colRef, db } from "../../firebase";
 
 // --------------------------------------------------------------------
 const validationSchema = Yup.object({
@@ -44,33 +46,53 @@ const SignUpPage = () => {
     enableReinitialize: true,
     validationSchema: validationSchema,
     onSubmit: (values) => {
-      dispatch(
-        userSignup({
+      // dispatch(
+      //   userSignup({
+      //     uname: values.userName,
+      //     upass: values.password,
+      //     fullName: values.fullName,
+      //     dob: values.dob.$d,
+      //     phoneNo: values.phoneNo,
+      //     address: values.address,
+      //   })
+      // ).then((res) => {
+        
+      //   if (res?.payload?.data?.ok) {
+
+      //     setTimeout(() => {
+      //       dispatch(resetMessage());
+      //       navigate("/");
+      //     }, [3000]);
+      //   }
+      //   if (res?.payload?.data?.error) {
+      //     setTimeout(() => {
+      //       dispatch(resetErrMessage());
+      //     }, [3000]);
+          
+      //   }
+      // });
+    
+      // Using Firestore
+      addDoc(colRef, {
           uname: values.userName,
           upass: values.password,
           fullName: values.fullName,
           dob: values.dob.$d,
           phoneNo: values.phoneNo,
           address: values.address,
-        })
-      ).then((res) => {
-        
-        if (res?.payload?.data?.ok) {
-
-          setTimeout(() => {
-            dispatch(resetMessage());
-            navigate("/");
-          }, [3000]);
-        }
-        if (res?.payload?.data?.error) {
-          setTimeout(() => {
-            dispatch(resetErrMessage());
-          }, [3000]);
-          
-        }
-      });
+      }).then(res=>{
+        console.log("res ",res);
+        navigate("/");
+      })
     },
   });
+
+  //  // For Delete
+  //  const id="31JKWLBUI1hqAdijpzDA";
+  //  const docRef = doc(db, 'client', id ) //ID Means deleting id
+  //  deleteDoc(docRef).then((res)=>{
+  //    console.log("del ",res)
+  //  })
 
   return (
     <Container component="main" maxWidth="xs">
